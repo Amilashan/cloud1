@@ -1,0 +1,396 @@
+
+
+........Docker Code....................
+
+# Use an official OpenJDK runtime as the base image
+FROM openjdk:11
+
+# Copy the Java class file into the container
+COPY FindMax.java /app1/FindMax.java
+
+# Set the working directory in the container
+WORKDIR /app1
+
+
+# Compile the java program
+RUN javac FindMax.java 
+
+# Run the Java program
+CMD ["java", "FindMax"]
+
+
+sudo docker build -t myapp:version1 .
+sudo docker run -it myapp:version1
+
+...............Calculator Application............
+
+
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter two numbers:");
+        double num1 = scanner.nextDouble();
+        double num2 = scanner.nextDouble();
+
+        System.out.println("Choose an operation (+, -, *, /):");
+        char operator = scanner.next().charAt(0);
+
+        double result = 0;
+
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2;
+                } else {
+                    System.out.println("Error! Division by zero is not allowed.");
+                    return;
+                }
+                break;
+            default:
+                System.out.println("Error! Invalid operator.");
+                return;
+        }
+
+        System.out.println("Result: " + result);
+    }
+}
+
+
+...............Student Grades...............................
+
+import java.util.Scanner;
+
+public class StudentGrades {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the number of students:");
+        int numStudents = scanner.nextInt();
+
+        int[] grades = new int[numStudents];
+
+        // Input grades
+        System.out.println("Enter the grades:");
+        for (int i = 0; i < numStudents; i++) {
+            System.out.print("Student " + (i + 1) + ": ");
+            grades[i] = scanner.nextInt();
+        }
+
+        // Calculate average, highest, and lowest grades
+        int sum = 0;
+        int highest = grades[0];
+        int lowest = grades[0];
+
+        for (int grade : grades) {
+            sum += grade;
+
+            if (grade > highest) {
+                highest = grade;
+            }
+
+            if (grade < lowest) {
+                lowest = grade;
+            }
+        }
+
+        double average = (double) sum / numStudents;
+
+        // Display results
+        System.out.println("Average Grade: " + average);
+        System.out.println("Highest Grade: " + highest);
+        System.out.println("Lowest Grade: " + lowest);
+    }
+}
+
+
+
+
+...............Factorial Calculation...............................
+
+import java.util.Scanner;
+
+public class FactorialCalculation {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a number:");
+        int number = scanner.nextInt();
+
+        long factorial = calculateFactorial(number);
+
+        System.out.println("Factorial of " + number + " is: " + factorial);
+    }
+
+    private static long calculateFactorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        } else {
+            return n * calculateFactorial(n - 1);
+        }
+    }
+}
+
+..............................Find Maximum Element.....................
+
+
+import java.util.Scanner;
+
+public class MaxElementInArray {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the size of the array:");
+        int size = scanner.nextInt();
+
+        int[] array = new int[size];
+
+        // Input array elements
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < size; i++) {
+            array[i] = scanner.nextInt();
+        }
+
+        // Find the maximum element
+        int maxElement = array[0];
+        for (int i = 1; i < size; i++) {
+            if (array[i] > maxElement) {
+                maxElement = array[i];
+            }
+        }
+
+        System.out.println("Maximum Element in the array: " + maxElement);
+    }
+}
+
+
+
+.........................Reverse a String.......................................
+
+import java.util.Scanner;
+
+public class ReverseString {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a string:");
+        String input = scanner.nextLine();
+
+        String reversedString = reverseString(input);
+
+        System.out.println("Reversed String: " + reversedString);
+    }
+
+    private static String reverseString(String str) {
+        char[] charArray = str.toCharArray();
+        int left = 0;
+        int right = charArray.length - 1;
+
+        while (left < right) {
+            // Swap characters at left and right indices
+            char temp = charArray[left];
+            charArray[left] = charArray[right];
+            charArray[right] = temp;
+
+            // Move indices towards the center
+            left++;
+            right--;
+        }
+
+        return new String(charArray);
+    }
+}
+
+
+................................Array Sorting.........................
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ArraySorting {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the size of the array:");
+        int size = scanner.nextInt();
+
+        int[] array = new int[size];
+
+        // Input array elements
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < size; i++) {
+            array[i] = scanner.nextInt();
+        }
+
+        // Sort the array
+        Arrays.sort(array);
+
+        // Display the sorted array
+        System.out.println("Sorted Array: " + Arrays.toString(array));
+    }
+}
+
+
+....................Decimal to Binary Conversion.......................
+
+import java.util.Scanner;
+
+public class DecimalToBinary {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a decimal number:");
+        int decimalNumber = scanner.nextInt();
+
+        String binaryRepresentation = convertToBinary(decimalNumber);
+
+        System.out.println("Binary representation: " + binaryRepresentation);
+    }
+
+    private static String convertToBinary(int decimalNumber) {
+        StringBuilder binary = new StringBuilder();
+
+        if (decimalNumber == 0) {
+            return "0";
+        }
+
+        while (decimalNumber > 0) {
+            // Append the remainder to the front of the string
+            binary.insert(0, decimalNumber % 2);
+            
+            // Divide the number by 2 to continue the conversion
+            decimalNumber /= 2;
+        }
+
+        return binary.toString();
+    }
+}
+
+
+
+..................Count Vowels and Consonants..............................
+
+import java.util.Scanner;
+
+public class CountVowelsConsonants {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a string:");
+        String input = scanner.nextLine().toLowerCase(); // Convert to lowercase for case-insensitive counting
+
+        int vowelCount = 0;
+        int consonantCount = 0;
+
+        for (char ch : input.toCharArray()) {
+            if (isVowel(ch)) {
+                vowelCount++;
+            } else if (Character.isLetter(ch)) {
+                consonantCount++;
+            }
+        }
+
+        System.out.println("Number of vowels: " + vowelCount);
+        System.out.println("Number of consonants: " + consonantCount);
+    }
+
+    private static boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+}
+
+..................................Matrix Transposition..................
+
+import java.util.Scanner;
+
+public class MatrixTransposition {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the number of rows in the matrix:");
+        int rows = scanner.nextInt();
+
+        System.out.println("Enter the number of columns in the matrix:");
+        int columns = scanner.nextInt();
+
+        int[][] matrix = new int[rows][columns];
+
+        // Input matrix elements
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Transpose the matrix
+        int[][] transposedMatrix = transposeMatrix(matrix);
+
+        // Display the transposed matrix
+        System.out.println("Original Matrix:");
+        displayMatrix(matrix);
+
+        System.out.println("Transposed Matrix:");
+        displayMatrix(transposedMatrix);
+    }
+
+    private static int[][] transposeMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+
+        int[][] transposedMatrix = new int[columns][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                transposedMatrix[j][i] = matrix[i][j];
+            }
+        }
+
+        return transposedMatrix;
+    }
+
+    private static void displayMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int element : row) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+......................Leap Year Check.............................
+
+import java.util.Scanner;
+
+public class LeapYearCheck {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a year:");
+        int year = scanner.nextInt();
+
+        if (isLeapYear(year)) {
+            System.out.println(year + " is a leap year.");
+        } else {
+            System.out.println(year + " is not a leap year.");
+        }
+    }
+
+    private static boolean isLeapYear(int year) {
+        // Leap year is divisible by 4, but not divisible by 100 unless it is divisible by 400
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+}
